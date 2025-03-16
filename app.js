@@ -9,7 +9,18 @@ const Pokemon = pokemonModel(db, DataTypes)
 const pokemon_router = require('./src/routes/pokemons')
 const user_router = require('./src/routes/users')
 
+const cors = require('cors')
 
+// CORS
+
+app.use(cors({
+    //Par défaut:
+    // origin: '*',
+    // methods: 'GET, POST, PUT, DELETE',
+    // "preflightContinue": false,
+    // allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    // "optionsSuccessStatus": 204
+}))
 
 // Middleware
 app.use(express.json()).use(express.urlencoded({ extended: true })).use(favicon(__dirname + '/favicon.ico'))

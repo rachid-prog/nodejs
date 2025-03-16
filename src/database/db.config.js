@@ -1,13 +1,25 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const pokemons = require("../../mock-pokemon")
 const bcrypt = require("bcrypt")
+let db;
+if (process.env.NODE_ENV === 'production') {
+    db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.PASSWORD, {
+        host: process.env.DB_HOST,
+        dialect: process.env.DB_DIALECT,
+        logging: true,
+    })
 
+}
+else {
+    db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.PASSWORD, {
+        host: process.env.DB_HOST,
+        dialect: process.env.DB_DIALECT,
+        logging: false,
+    })
+
+}
 //Connexion à la base de donnée mysql avec sequelize
-const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.PASSWORD, {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
-    logging: false,
-})
+
 
 //importer les tables
 const pokemonModel = require('../models/pokemon');
